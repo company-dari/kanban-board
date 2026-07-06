@@ -152,8 +152,13 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>📋 칸반 보드</h1>
-        <span className="count">카드 {cards.length}개</span>
+        <div className="brand">
+          <h1>
+            <span className="logo">📋</span> 칸반 보드
+          </h1>
+          <p className="sub">주제 · 시급성 · 완료일 · 메모로 관리하는 업무 보드</p>
+        </div>
+        <span className="count">{cards.length} cards</span>
       </header>
 
       {/* 매일 체크 */}
@@ -216,19 +221,28 @@ function App() {
               }}
             >
               <div className="column-head">
+                <span className={`col-dot ${col.id}`} />
                 <h2>{col.title}</h2>
                 <span className="badge">{colCards.length}</span>
               </div>
 
               <div className="cards">
+                {colCards.length === 0 && (
+                  <div className="empty">여기로 카드를 끌어오세요</div>
+                )}
                 {colCards.map((card) => {
                   const overdue =
                     card.due && card.due < today && card.column !== 'done'
                   return (
                     <article
                       key={card.id}
-                      className="card"
+                      className={`card${dragId === card.id ? ' dragging' : ''}`}
                       draggable
+                      style={{
+                        borderLeftColor: card.category
+                          ? catColor(card.category)
+                          : urgencyDot(card.urgency),
+                      }}
                       onDragStart={() => setDragId(card.id)}
                       onDragEnd={() => setDragId(null)}
                       onClick={() => setEditId(card.id)}
