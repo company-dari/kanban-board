@@ -28,7 +28,7 @@ body {
   display: flex;
   align-items: baseline;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .app-header h1 {
@@ -41,6 +41,57 @@ body {
   font-size: 14px;
 }
 
+/* 매일 체크 */
+.daily {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+
+.daily-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.daily-head h2 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.daily-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.daily-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border-radius: 999px;
+  padding: 6px 12px 6px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.daily-item input {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+}
+
+.daily-item.done span {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+/* 보드 */
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -94,22 +145,68 @@ body {
   background: var(--card);
   border-radius: 8px;
   padding: 10px 12px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card:hover {
+  outline: 1px solid var(--accent);
+}
+
+.card-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  cursor: grab;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  gap: 6px;
 }
 
-.card:active {
-  cursor: grabbing;
+.urg-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
-.card-text {
+.cat-tag {
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.bang {
+  font-size: 12px;
+}
+
+.card-top .del {
+  margin-left: auto;
+}
+
+.card-title {
   font-size: 14px;
   line-height: 1.35;
   word-break: break-word;
+}
+
+.card-note {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.due {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.due.overdue {
+  color: var(--danger);
+  font-weight: 600;
 }
 
 .del {
@@ -144,4 +241,111 @@ body {
 
 .add input::placeholder {
   color: var(--muted);
+}
+
+/* 편집 모달 */
+.modal-back {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+}
+
+.modal {
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 20px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field > span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.field input,
+.field select,
+.field textarea {
+  background: var(--bg);
+  border: 1px solid #475569;
+  border-radius: 8px;
+  color: var(--text);
+  padding: 9px 12px;
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--accent);
+}
+
+.urg-pick {
+  display: flex;
+  gap: 8px;
+}
+
+.urg-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--bg);
+  border: 1px solid #475569;
+  border-radius: 8px;
+  color: var(--text);
+  padding: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.urg-btn.active {
+  background: var(--card);
+  border-width: 2px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.btn-primary,
+.btn-danger {
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
 }
